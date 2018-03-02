@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #
+# 
 # A simple utility that will create 2 files based on netstat output.
 #
 # File 1 contains output based on the following
@@ -13,6 +14,7 @@
 #   2. Get all endpoints that are in 'ESTABLISHED', 'TIME_WAIT', 'CLOSE_WAIT' or 'SYN_SENT' status
 #   3. Record the output to a csv file (details below)
 #
+# Version: 1.0
 # Author: Tennis Smith <www.roundtower.com>, under GPL v2+
 # (C) 2018 RoundTower Technologies, Inc. Confidential & Intellectual Property. All rights reserved.
 # -------------------------------------------------------
