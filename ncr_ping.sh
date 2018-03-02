@@ -10,9 +10,13 @@
 #
 # File 2 contains output based on the following rules
 #   1. Run netstat
-#   2. Get all endpoints that are in 'TIME_WAIT', 'CLOSE_WAIT' or 'SYN_SENT' status
+#   2. Get all endpoints that are in 'ESTABLISHED', 'TIME_WAIT', 'CLOSE_WAIT' or 'SYN_SENT' status
 #   3. Record the output to a csv file (details below)
 #
+# Author: Tennis Smith <www.roundtower.com>, under GPL v2+
+# (C) 2018 RoundTower Technologies, Inc. Confidential & Intellectual Property. All rights reserved.
+# -------------------------------------------------------
+
 set -o errexit   # force exit when a command fails
 set -o pipefail  # when piping, set exit code to last non-zero in pipeline
 
@@ -46,7 +50,7 @@ netstat | grep ESTABLISHED | cut -d' ' -f 2 | cut -d'.' -f1-4 | while read -r ip
 done
 
 # Run netstat again to pickup certain session state information
-netstat | ggrep -e 'TIME_WAIT' -e 'CLOSE_WAIT' -e 'SYN_SENT' - | while read -r line; do
+netstat | ggrep -e 'ESTABLISHED' -e 'TIME_WAIT' -e 'CLOSE_WAIT' -e 'SYN_SENT' - | while read -r line; do
 
     # Extract the remote ip addr ONLY from the netstat output. It has a port # appended, so it has to be trimmed.
     ip_remote=$( echo "${line}" | cut -d' ' -f 2 | cut -d'.' -f1-4 )
@@ -60,4 +64,4 @@ netstat | ggrep -e 'TIME_WAIT' -e 'CLOSE_WAIT' -e 'SYN_SENT' - | while read -r l
 done
 
 # Finally we tar everything to a common file
-tar cvf - /tmp/ping_tests | gzip -c > /tmp/ping_tests.tar.gz
+tar cvf - /tmp/ping_tests | gzip -c > /tmp/${my_ip_addr}_${timestamp}_ping_tests.tar.gz
