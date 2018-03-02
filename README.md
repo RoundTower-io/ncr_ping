@@ -14,3 +14,6 @@ File 2 contains output based on the following rules
   1. Run netstat
   2. Get all endpoints that are in 'ESTABLISHED', 'TIME_WAIT', 'CLOSE_WAIT' or 'SYN_SENT' status
   3. Record the output to a csv file  
+
+Set the script as executable then you can run this file as-is or execute it via cron every 15 minutes.
+`# ./solaris_dc_netstat.sh`
