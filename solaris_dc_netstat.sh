@@ -26,6 +26,9 @@ timestamp=$(date +'%Y%m%d_%H%M%S')
 my_ip=$(/usr/sbin/ifconfig -a | awk 'BEGIN { count=0; } { if ( $1 ~ /inet/ ) { count++; if( count==2 ) { print $2; } } }' )
 my_ip_addr=$(echo "${my_ip}" | sed 's/\./_/g')
 
+# create a dir name by using the remote ip address, but replacing dots with underscores
+ip_addr_dir=$(echo "${ip_addr}" | sed 's/\./_/g')
+
 # If the directory doesn't exist, create it.
 if ! [[ -d "/tmp/netstat_tests/${ip_addr_dir}" ]]; then
     mkdir -p "/tmp/netstat_tests/${ip_addr_dir}"
