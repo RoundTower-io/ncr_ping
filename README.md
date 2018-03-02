@@ -1,5 +1,7 @@
 # solaris_dc_netstat
 
+Solaris Data Collection NetStat script
+
 A simple utility that will create 2 files based on netstat output.
 
 File 1 contains output based on the following
