@@ -27,8 +27,7 @@ my_ip=$(/usr/sbin/ifconfig -a | awk 'BEGIN { count=0; } { if ( $1 ~ /inet/ ) { c
 my_ip_addr=$(echo "${my_ip}" | sed 's/\./_/g')
 
 # Extract the remote ip addr from the netstat output. It has a port # appended, so it has to be trimmed.
-netstat | grep ESTABLISHED | cut -d' ' -f 2 | cut -d'.' -f1-4 | while read -r ip_addr; do
-
+netstat | grep ESTABLISHED | awk '{print $2}' | cut -d'.' -f1-4 | while read -r ip_addr; do
     # Tells the world what we're doing
     echo "pinging ${ip_addr}"
 
